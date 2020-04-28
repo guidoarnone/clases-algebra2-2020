@@ -1,0 +1,363 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts, amssymb}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{graphics}
+\usepackage{epstopdf}
+\usepackage{lmodern}
+\usepackage{bbm} % black board numbers
+\usepackage{listings}
+\usepackage{hyperref}
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+
+
+\mode<presentation>{
+
+	\usetheme{Boadilla} 
+	\usecolortheme{whale}
+	%\usefonttheme{professionalfonts}
+}
+
+
+
+
+
+\newcommand{\tq}{\mathrel{{\ensuremath{\: : \: }}}}
+
+\newcommand{\st}{\ensuremath{\mathrm{st}}}
+\newcommand{\starabierto}{\ensuremath{\stackrel{\circ}{\mathrm{st}}}}
+\newcommand{\lk}{\ensuremath{\mathrm{lk}}}
+
+\newcommand{\Hom}{\ensuremath{\mathrm{Hom}}}
+\newcommand{\Ext}{\ensuremath{\mathrm{Ext}}_{\mathbb{Z}}}
+\newcommand{\Tor}{\ensuremath{\mathrm{Tor}}^{\mathbb{Z}}}
+
+\newcommand{\imagen}{\ensuremath{\mathrm{Im}}}
+\newcommand{\tr}{\ensuremath{\mathrm{tr}}}
+\newcommand{\rk}{\mathrm{rk}}
+
+\newcommand{\id}{\mathbbm{1}}
+\newcommand{\Sq}{\ensuremath{\mathrm{Sq}}}
+\newcommand{\deficiency}{\mathrm{def}}
+\newcommand{\Fix}{\mathrm{Fix}}
+\def\action{\curvearrowright}
+\newcommand{\LS}[2]{\left(\dfrac{#1}{#2}\right)}
+
+
+\newcommand{\Out}{\mathrm{Out}}
+\newcommand{\Outdiag}{\mathrm{Outdiag}}
+\newcommand{\Inn}{\mathrm{Inn}}
+\newcommand{\Aut}{\mathrm{Aut}}
+
+
+\def\wt{\widetilde}
+\def\ms{\medskip}
+\def\bs{\bigskip}
+
+
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\H{\mathbb{H}}
+
+\def\GL{\mathrm{GL}}
+\def\SO{\mathrm{SO}}
+\def\sg{\mathrm{sg}}
+\def\det{\mathrm{det}}
+
+
+\def\sharp{\#}
+
+\newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
+\newcommand{\Set}{\catname{Set}}
+\newcommand{\Top}{\catname{Top}}
+\newcommand{\Ab}{\catname{Ab}}
+\newcommand{\Grp}{\catname{Grp}}
+\newcommand{\op}{\catname{op}}
+
+\def\1{\mathbbm{1}}
+%\beamerdefaultoverlayspecification{<+->} % itemize automatico
+\newtheorem{teorema}{Teorema} [section]
+\newtheorem{teorema1}[teorema]{Teorema 1}
+\newtheorem{teorema2}[teorema]{Teorema 2}
+\newtheorem{teorema3}[teorema]{Teorema 3}
+\newtheorem{pregunta}[teorema]{Pregunta}
+\newtheorem{definicion}[teorema]{Definici\'on} 
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{corolario}[teorema]{Corolario} 
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+\newtheorem{ejercicio}[teorema]{Ejercicio}
+\newtheorem{ejemplos}[teorema]{Ejemplos}
+\newtheorem{observacion}[teorema]{Observaci\'on}
+\newtheorem{proposicion}[teorema]{Proposici\'on}
+\newtheorem{conjetura}[teorema]{Conjetura}
+
+
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}
+        {
+      \leavevmode
+      \hbox{
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}\insertshortauthor
+      \end{beamercolorbox}
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+      \end{beamercolorbox}
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate
+
+    %#turning the next line into a comment, erases the frame numbers
+        %\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+
+      \end{beamercolorbox}
+			}
+      \vskip0pt
+    }
+
+\newenvironment{psmallmatrix}
+  {\left(\begin{smallmatrix}}
+  {\end{smallmatrix}\right)}
+
+\setbeamercolor{alerted text}{fg=blue!100!black!200!}
+
+
+% Author, Title, etc.
+\title[Álgebra II Práctica (clase 5)] {Álgebra II Práctica (clase 5)}
+\author[G. Arnone]{Guido Arnone}
+\institute[]{Universidad de Buenos Aires}
+\date[2020/04/28]{28 de Abril de 2020}
+
+
+% The main document
+\begin{document}
+
+{
+\setbeamertemplate{footline}{}
+\begin{frame}
+\titlepage
+\end{frame}
+}
+
+\section{Prerrequisitos}
+\begin{frame}{Prerrequisitos}
+Para leer estas diapositivas se recomienda haber leído el apunte teórico hasta la Sección 1.6.
+
+\medskip
+
+%\tableofcontents
+\end{frame}
+
+\begin{frame}{Sistemas de Generadores}
+Vamos a relacionar las definiciones de grupo normal y cociente con la noción de sistema de generadores de un grupo.
+
+\medskip
+\onslide<2-> 
+Recordemos que dado un grupo $G$, un subconjunto $S \subset G$ es un \alert{sistema de generadores} de $G$ si todo elemento de $G$ se puede escribir como un producto de elementos de $S$ o sus inversos. \onslide<3-> Concretamente, si $g \in G$ entonces existen $s_1, \dots, s_n \in S$ y $\varepsilon_1, \dots, \varepsilon_n \in \{-1,1\}$ tales que
+\[
+g = s_1^{\varepsilon_1} \cdots s_n^{\varepsilon_n}.
+\]
+
+\onslide<4-> Equivalentemente, es $G = \langle S \rangle = \bigcap_{S \subset H \leq G}H$.
+\onslide<5-> Decimos también que $G$ \alert{está generado} por $S$. \onslide<6-> Por ejemplo, el grupo $S_n$ está generado por las transposiciones y el diedral $D_n$ por los elementos que denotamos $r$ y $s$.
+\end{frame}
+
+
+\begin{frame}{Sistemas de Generadores - Grupos Normales}
+Trabajar con generadores nos permite dar información sobre todo el grupo $G$ analizando sólo lo que sucede para algunos elementos. Por ejemplo,
+
+\onslide<2->\begin{proposicion} Sea $G$ un grupo y $S$ un conjunto de generadores. Un subgrupo $H$ de $G$ es normal si y solo si $sHs^{-1} \subset H$ y $s^{-1}Hs \subset H$ para todo $s \in S$.
+\end{proposicion}
+\onslide<3->\begin{proof}[Demostración] Si $H$ es normal, ya sabemos que $gHg^{-1} \subset H$ para \alert{todo} $g \in G$, lo que debemos ver es la recíproca. \onslide<4-> Tomemos $h \in H,g \in G$ y escribamos $g = s_1^{\varepsilon_1} \cdots s_n^{\varepsilon_n}$. \onslide<5-> En estos términos, debe ser $g^{-1} = s_n^{-\varepsilon_n} \cdots s_1^{-\varepsilon_1}$. \onslide<6-> Ahora, por hipótesis $h_1 = s_n^{\varepsilon_n}hs_n^{-\varepsilon_n}$ es un elemento de $H$. \onslide<7-> Del mismo modo $h_2 = s_{n-1}^{\varepsilon_{n-1}}h_1s_{n-1}^{-\varepsilon_{n-1}}$ también está en $H$.\onslide<8-> Repetimos el proceso hasta llegar a que
+\[
+ghg^{-1} = s_1^{\varepsilon_1} \cdots s_n^{\varepsilon_n}h s_n^{-\varepsilon_n} \cdots s_1^{-\varepsilon_1}
+\]
+pertenece a $H$, como queríamos ver.
+\end{proof}
+\end{frame}
+  
+\begin{frame}{Sistemas de Generadores - Grupos Normales (cont.)}
+\begin{ejercicio} El resultado anterior es falso si pedimos solamente que $sHs^{-1} \subset H$ para todo $s \in S$. Justificar por qué la demostración anterior no es correcta si sólo tenemos esta hipótesis.
+\end{ejercicio}
+\onslide<2->Algunas consecuencias inmediatas:
+\begin{itemize}
+\onslide<3->\item Un subgrupo $H$ es normal en $S_n$ si y sólo si $\tau H \tau^{-1} \subset H$ para toda \alert{transposición} $\tau \in S_n$.
+\onslide<4-> \item Para decidir si un subgrupo $H$ de $D_n$ es normal, alcanza ver que $sHs \subset H$ y $rHr^{-1}, r^{-1}Hr \subset H$.
+\end{itemize}
+\end{frame}
+  
+\begin{frame}{Sistemas de Generadores - Cocientes}
+Si $H$ es un subgrupo normal de un grupo $G$, sabemos que $G/H$ es un grupo, y por lo tanto tiene sentido hablar de un sistema de generadores para $G/H$. \onslide<2-> A partir de generadores de $G$ podemos conseguir generadores de $G/H$,
+
+\onslide<3->\begin{proposicion} Sea $G$ un grupo y $H \triangleleft G$. Notamos $\pi : g \mapsto [g] = gH \in G/H$ a la proyección canónica. Si $S$ es un conjunto de generadores de $G$, entonces $T := \pi(S) = \{[s] : s \in S\}$ es un conjunto de generadores de $G/H$.
+\end{proposicion}
+\onslide<4->\begin{proof}[Demostración] Tomemos $x \in G/H$. Sabemos que es de la forma $x= [g] = gH$ para algún $g \in G$. \onslide<5->Como $S$ genera a $G$, es $g = s_1^{\varepsilon_1} \cdots s_n^{\varepsilon_n}$ para ciertos $\{s_i\}_{i=1}^n \subset S, \{\varepsilon_i\}_{i=1}^n \subset \{-1,1\}$. \onslide<6-> Aplicando $\pi$ a ambos lados de la igualdad, resulta $[g] = [s_1^{\varepsilon_1} \cdots s_n^{\varepsilon_n}] = [s_1]^{\varepsilon_1} \cdots [s_n]^{\varepsilon_n}$.
+\end{proof}
+\end{frame}
+
+\begin{frame}{Sistemas de Generadores - Cocientes (cont.)}
+También podemos conseguir generadores de $G$ a partir de generadores de $H$ y $G/H$. Concretamente,
+\onslide<2-> \begin{proposicion} Sea $G$ un grupo y $H$ un subgrupo normal. Si tenemos $S,T \subset G$ tales que $S$ genera a $H$ y $\pi(T)$ genera a $G/H$, entonces $S \cup T$ genera a $G$.
+\end{proposicion}
+\onslide<3-> \begin{proof}[Idea de la demostración]
+\begin{itemize}
+\onslide<4-> \item Tomemos $g \in G$. Por hipótesis $[g]$ se escribe como $[g] = [t_1]^{\varepsilon_1} \cdots [t_n]^{\varepsilon_n}$ $= [t_1^{\varepsilon_1} \cdots t_n^{\varepsilon_n}]$ para ciertos $t_i \in T$.
+\onslide<5-> \item Esta igualdad nos dice que existe $h \in H$ tal que $g = t_1^{\varepsilon_1} \cdots t_n^{\varepsilon_n}h$.
+\onslide<6-> \item Por otro lado debe ser $h = s_1^{\delta_1} \cdots s_n^{\delta_m}$ con $s_j \in S$ así que, en definitiva, es $g = t_1^{\varepsilon_1} \cdots t_n^{\varepsilon_n}s_1^{\delta_1} \cdots s_n^{\delta_m}$.
+\end{itemize}  
+\end{proof}
+\end{frame}
+
+\begin{frame}{Sistemas de Generadores - Una Aplicación}
+Antes de seguir, veamos una aplicación:
+
+\medskip
+
+\onslide<2-> Dijimos anteriormente que si $n \geq 3$, entonces $S_n/A_n = \{[1],[\tau]\}$ con $\tau$ cualquier transposición. Este cociente es un grupo cíclico generado por $[\tau]$. 
+
+\medskip
+
+\onslide<3->Por otro lado, el grupo alternante está generado por los $3$-ciclos (\href{https://bit.ly/3cONlKe}{\alert{esta}} respuesta en Zulip incluye una demostración). \onslide<4->El resultado que probamos nos dice que $S_n$ está generado por los $3$-ciclos y una única transposición (y no importa cuál elijamos!).
+
+\medskip
+\end{frame}
+
+\begin{frame}{El primer teorema de isomorfismo}
+\alert{Recordar:} si $f : G \to G'$ es un morfismo de grupos y $K \triangleleft G$ un subgrupo normal de $G$ contenido en $\ker f$, existe un único morfismo de grupos 
+\[
+\overline{f} : [g] \in G/K \mapsto f(g) \in G'
+\]
+tal que $\overline{f}\pi = f$, donde $\pi: G \to G/K$ es la proyección canónica. Además, se tiene $\mathsf{im} f = \mathsf{im} \overline{f}$. 
+\medskip
+
+\onslide<2-> Cuando $K = \ker f$, el morfismo $\overline{f}$ es inyectivo y entonces es un isomorfismo con su imagen, por lo que
+\[
+G/\ker f \simeq \mathsf{im} f.
+\]
+\end{frame}  
+
+\begin{frame}{El primer teorema de isomorfismo}
+En estos términos, los cocientes que vimos hace unas clases se pueden caracterizar \alert{como grupos}:
+\begin{itemize}
+\onslide<2-> \item $\sg : S_n \to G_2 \rightsquigarrow S_n/A_n \simeq G_2$
+\onslide<3-> \item $r_n : \Z \to \Z_n \rightsquigarrow \Z/n\Z \simeq \Z_n$, con $r_n$ la función que devuelve el resto en la división por $n \in \N$.
+\onslide<4-> \item $p : (x,y) \in \R^2 \mapsto (0,y) \in \R \rightsquigarrow \R^2/\R \oplus 0 \simeq \R$. 
+\end{itemize}
+\medskip \medskip
+\onslide<5-> Veamos otro ejemplo, para el cual necesitaremos primero algunas definiciones.
+\end{frame}  
+
+\begin{frame}{El grupo afín}
+
+Una función $T : \R^n \to \R^n$ se dice \alert{afín} si es de la forma $T(x) = Ax + b$ con $b \in \R^n$ y $A \in \mathsf{M}_n\R$. Notaremos $T = A + b$. \onslide<2->Intuitivamente, estamos considerando funciones lineales que "olvidan el origen", ya que permitimos trasladar.
+
+\onslide<3->\begin{ejercicio} Probar que:
+\begin{itemize}
+\onslide<4-> \item Una transformación afín $T = A + b$ es inversible si y sólo si $A$ lo es. En tal caso, su inversa es también una transformación afín.
+\onslide<5-> \item La composición de transformaciones afines resulta una transformación afín. 
+\end{itemize}
+\end{ejercicio}
+
+\onslide<6->El ejercicio anterior justifica que 
+\begin{align*}
+Aff_n(\R) :&= \{T : \R^n \to \R^n : \text{$T$ es afín e inversible} \}\\
+&= \{T : \R^n \to \R^n \mid T(x) = Ax + b, b \in \R^n, A \in \mathsf{GL}_n(\R)\}
+\end{align*}
+es un grupo con la composición. Lo llamamos el \alert{grupo afín} de $\R^n$.
+\end{frame}
+
+\begin{frame}{El grupo afín (cont.)}
+En $Aff_n(\R)$ hay dos subgrupos distinguidos:
+\begin{itemize}
+\onslide<2-> \item Las funciones lineales inversibles $H := \{T \in Aff_n(\R) : \text{$T$ es lineal}\}$.
+\onslide<3-> \item Las traslaciones, 
+\[
+K := \{T \in Aff_n(\R) \mid T(x) = x+b, b \in \R^n\} = \{I + b : b \in \R^n\}.
+\]
+\end{itemize}
+
+\onslide<4-> \begin{ejercicio} Probar que:
+\begin{itemize}
+\onslide<5-> \item Existen isomorfismos $H \simeq \mathsf{GL}_n(\R)$ y $K \simeq \R^n$.
+\onslide<6-> \item El subgrupo $K$ es normal en $Aff_n(\R)$, pero $H$ no. 
+\end{itemize}
+\end{ejercicio}
+\end{frame}
+
+\begin{frame}{El grupo afín (cont.)}
+Observemos también que todo elemento $S(x) = Ax + b$ del grupo afín se escribe como $S = TL$ con $T(x) = x+b$ una traslación y $L(x) = Ax$ una función lineal inversible. De hecho,
+
+\onslide<2->\begin{ejercicio}[para más adelante!] Probar que $Aff_n(\R) \simeq \R^n \rtimes \mathsf{GL}_n(\R)$.
+\end{ejercicio}
+\medskip
+
+\onslide<3->Volvamos al primer teorema de isomorfismo: sabemos que las traslaciones son un grupo normal. \onslide<4->Intuitivamente, identificando transformaciones afines si difieren en una traslación deberíamos recuperar "su parte lineal". \onslide<5->Es decir, deberíamos tener que $Aff_n(\R)/K \simeq \mathsf{GL}_n(\R)$. Veámoslo.
+\end{frame}
+
+\begin{frame}{El grupo afín (cont.)}
+En base a lo anterior, consideramos la función
+\begin{align*}
+\Lambda \colon &Aff_n(\R) \rightarrow \mathsf{GL}_n(\R) \\
+&A+b \longmapsto A 
+\end{align*}
+\onslide<2-> Si $T = A + b$ y $S = C + d$, entonces
+\[
+T \circ S(x) = T(Cx+d) = ACx + Ad + b
+\]
+y $\Lambda(TS) = AC = \Lambda(T)\Lambda(S)$. \onslide<3->Por lo tanto $\Lambda$ es un morfismo de grupos. Además $\Lambda$ es sobreyectivo, ya que $\Lambda(A) = A$ para toda $A$ inversible, y
+\[
+\ker \Lambda = \{I+b : b \in \R^n\} = K.
+\] 
+
+\onslide<4->Por el primer teorema de isomorfismo, obtenemos efectivamente que
+\[
+Aff_n(\R)/K \simeq \mathsf{GL}_n(\R).
+\]
+\end{frame}
+
+\begin{frame}{Subgrupos de un Cociente}
+Para terminar, caractericemos a los subgrupos de un cociente. Sea $G$ un grupo y $H$ un subgrupo normal en $G$. \onslide<2->Si aplicamos la Proposición 1.4.24 del apunte teórico a la proyección $\pi : G \to G/H$, obtenemos una correspondencia biyectiva
+\[
+\{H \subset K : \text{ $K$ subgrupo de $G$}\} \leftrightarrow \{L \subset G/H : \text{$L$ subgrupo de $G/H$}\}
+\]
+que envía $K$ a $\pi(K)$ y $L$ a $\pi^{-1}(L)$. Además, la correspondencia envía subgrupos grupos normales a subgrupos normales.
+\medskip
+
+\onslide<3-> Relacionando esto con el ejemplo anterior, los subgrupos de $Aff_n(\R)$ que contienen a las traslaciones se identifican con los subgrupos de $Aff_n(\R)/K$.
+\end{frame}
+
+\begin{frame}{Subgrupos de un Cociente (cont.)}
+Por otro lado, pudimos caracterizar el cociente como un grupo conocido, y bajo el isomorfismo $\overline{\Lambda} : Aff_n(\R)/K \to \mathsf{GL}_n(\R)$ los subgrupos de $Aff_n(\R)/K$ son de la forma $\overline{\Lambda}^{-1}(L)$ con $L$ un subgrupo de $\mathsf{GL}_n(\R)$. 
+\medskip
+
+\onslide<2-> Juntando ambas correspondencias, vemos que todo subgrupo de $Aff_n(\R)$ que contiene a las traslaciones es de la forma
+\[
+H_L := \{Ax+b : b\in \R^n, A \in L\}
+\]
+con $L \leq \mathsf{GL}_n(\R)$.
+\end{frame}
+
+\begin{frame}{Ejercicios}
+Pueden relacionar todos los conceptos que vimos con los siguientes ejercicios,
+
+\onslide<2->\begin{ejercicio} ¿Cuántos subgrupos de $D_{7981326}$ que contienen a $H := \langle r^2 \rangle$ hay?
+\end{ejercicio}
+
+\onslide<3->\begin{ejercicio} Un grupo $G$ se dice \alert{simple} si $G \neq \{1\}$ y sus únicos subgrupos normales son $\{1\}$ y $G$. 
+\begin{itemize}
+\item[(i)] Sea $H$ un subgrupo normal en un grupo $G$. Probar que $G/H$ es simple si y sólo si el único subgrupo normal que contiene propiamente a $H$ es $G$.
+\item[(ii)] Probar que un grupo abeliano finito $G$ es simple si y sólo si $G \simeq \Z_p$ con $p$ primo. Concluir que en todo grupo abeliano finito  $G \neq \{1\}$ existe un subgrupo $H$ tal que $G/H \simeq \Z_p$, para algún $p$ primo.
+\end{itemize}
+\end{ejercicio}
+\end{frame}
+ 
+\end{document}

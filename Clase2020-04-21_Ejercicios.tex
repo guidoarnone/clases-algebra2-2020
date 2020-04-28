@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+
+\usepackage[bitstream-charter]{mathdesign}
+
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{tocbibind}
+\usepackage[
+    %textcolor=red,
+    linecolor=color,
+    bordercolor=color,
+    backgroundcolor=white,
+]{todonotes}
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\scshape\filcenter}{}{0em}{}
+\titleformat{\subsection}[block]{\large\bfseries\scshape\filcenter}{}{0em}{}
+
+\usepackage{thmtools,xcolor}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage[misc]{ifsym}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+\usepackage{graphicx}
+\usepackage{lipsum}
+
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}
+
+\definecolor{color}{RGB}{147, 8, 8}
+\renewcommand\qedsymbol{$\paint{\blacksquare}$}
+\declaretheoremstyle[
+  spaceabove = 6pt,
+  spacebelow = 6pt,
+  headfont=\color{color}\normalfont\bfseries,
+  notefont=\color{color}\normalfont\bfseries
+]{colored}
+\theoremstyle{colored}
+
+\newtheorem{definition}{Definición}
+\newtheorem{theorem}{Teorema}
+\newtheorem*{theorem*}{Teorema}
+\newtheorem{proposition}{Proposición}
+\newtheorem{corollary}{Corolario}
+\newtheorem{lemma}{Lema}
+\newtheorem{remark}{Observación}
+\newtheorem{example}{Ejemplo}
+\newtheorem{exercise}{Ejercicio}
+\newtheorem{exam-exercise}{Ejercicio}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=color,
+    filecolor=color,
+    linkcolor=color,
+    urlcolor=color,
+}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Ss}{\mathbb{S}}
+\renewcommand{\k}{\mathbb{k}}
+\newcommand{\M}[2]{\mathsf{M}_{#1}#2}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\nat}[1]{[\![#1]\!]}
+\newcommand{\natzero}[1]{\nat{#1}_0}
+\newcommand{\ol}{\overline}
+\newcommand{\tint}[1]{\stackrel{o}{#1}}
+\newcommand{\cat}[1]{\mathsf{#1}}
+
+\newcommand{\guill}[1]{«#1»}
+
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Deck}{Deck}
+
+\newcommand{\paint}[1]{\color{color}{#1}}
+\newcommand{\tpaint}[1]{\paint{\textbf{#1}}}
+\newcommand{\paintline}{\begin{center}
+$\paint{
+\rule{400pt}{0.5pt}
+}$
+\vspace{10pt}
+\end{center}}
+
+%-----------------------
+
+\title{
+\LARGE{$\tpaint{\scshape Álgebra II}$}
+\\
+\vspace{3pt}
+\small{Primer Cuatrimestre -- 2020}
+\\
+\vspace{0.5pt}
+\large{Clases Prácticas}
+}
+\author{}
+\date{}
+\lhead{Álgebra II}
+\rhead{Clases Prácticas}
+\author{}
+\date{21 de Abril}
+
+\begin{document}
+
+\maketitle
+
+\begin{exercise} Exhibir un grupo $G$ y $n \in \N$ que divida a $|G|$ pero tal que no existan elementos de orden $n$ en $G$.
+\end{exercise}
+\begin{proof}[Solución] Podemos tomar por ejemplo $G = G_2 \times G_2$. Este grupo tiene orden $4$, pero sin embargo todos sus elementos son de orden menor o igual dos, ya que
+\[
+(g,h)^2 = (g^2,h^2) = (1,1) = 1_G
+\]
+para todo $(g,h) \in G$.
+\end{proof}
+
+\begin{proposition} Si $n,m \in \N$, entonces $n!\cdot m!$ divide a $(n+m)!$.
+\end{proposition}
+\begin{proof}[Demostración] Procedemos por pasos, haciendo las observaciones necesarias en cada uno.
+\begin{itemize}[listparindent = \parindent]
+\item[$\tpaint{(1)}$] Si $\sigma \in S:= S_n$ y $\tau \in T := S(\{n+1, \cdots, n+m\})$, podemos definir una función
+\begin{align*}
+i(\sigma,\tau) : &\{1, \cdots, n+m\} \to \{1,\cdots, n+m\}\\
+&t \mapsto \begin{cases}
+\sigma(t) & \text{ si $t \leq n$}\\
+\tau(t) & \text{ si $t > n$}
+\end{cases}
+\end{align*}
+Se puede verificar que esta es una biyección con inversa $i(\sigma^{-1}, \tau^{-1})$. En particular, sabemos entonces que $i(\sigma, \tau)$ es un elemento de $S_{n+m}$ para toda $\sigma \in S$ y $\tau \in T$, así que está bien definida la aplicación $i : (\sigma, \tau) \in S \times T \mapsto i(\sigma,\tau) \in S_{n+m}$.
+\item[$\tpaint{(2)}$] Recordemos que si $G$ y $H$ son dos grupos, el conjunto $G \times H$ junto con la operación $(g,h)(g',h') = (g\cdot_G g', h \cdot_H h')$ forman un grupo que llamamos el \textit{producto directo} de $G$ y $H$. Su neutro es $1 = (1_G,1_H)$, y $(g,h)^{-1} = (g^{-1},h^{-1})$ para cada $(g,h) \in G \times H$. Veamos que, con respecto a esta estructura de grupo en $S \times T$, la función $i: S \times T \to S_{n+m}$ es un morfismo de grupos. 
+
+Sean entonces $(\sigma, \tau), (\sigma',\tau') \in S\times T$. Para ver que $i(\sigma,\tau)i(\sigma',\tau') = i(\sigma\sigma',\tau\tau')$, podemos probar que ambas permutaciones coinciden al evaluarlas en cada $t \in \{1,\dots, n+m\}$. Si $t \leq n$ es\footnote{Recordemos que adoptamos la convención de multiplicar a las permutaciones usando $\circ_{op}$, es decir $(\sigma\tau)(t) := \tau(\sigma(t))$.}
+\[
+(i(\sigma, \tau)\cdot i(\sigma',\tau'))(t) = i(\sigma', \tau')(\sigma(t)) = \sigma'(\sigma(t)) = (\sigma\sigma')(t) = i(\sigma\sigma', \tau\tau')(t),
+\]
+y si $t > n$ entonces
+\begin{align*}
+(i(\sigma, \tau)\cdot i(\sigma',\tau'))(t) = i(\sigma', \tau')(\tau(t)) = \tau'(\tau(t)) = (\tau\tau')(t) = i(\sigma\sigma', \tau\tau')(t)
+\end{align*}
+lo que prueba la igualdad.
+\item[$\tpaint{(3)}$] Probemos ahora que $i$ es inyectivo. Como es un morfismo, resta verificar que $\ker i = \{(1,1)\}$. Si $i(\sigma, \tau) = 1$, entonces para todo $k \in \{1,\dots, n\}$ vemos que $\sigma(k) = i(\sigma, \tau)(k) = 1(k) = k$, y para todo $l \in \{n+1,\dots, n+m\}$ es $\tau(l) = i(\sigma, \tau)(l) = 1(l) = l$. Esto muestra que $\sigma = 1, \tau = 1$ y entonces $(\sigma, \tau) = (1,1)$.
+\item[$\tpaint{(4)}$] Finalmente, como $i$ es un morfismo de grupos inyectivo, es un isomorfismo con su imagen. En particular $|\im f| = |S \times T| = |S| \cdot |T| = n! \cdot m!$. Por otro lado como $\im f$ es un subgrupo de $S_{n+m}$, su orden debe dividir a $|S_{n+m}| = (n+m)!$, y esto concluye la demostración.
+\end{itemize}
+\end{proof}
+
+\begin{exercise} Probar que si $G$ es un grupo de orden $p^s$ con $p$ primo y $s \geq 1$, todo subgrupo de $G$ tiene orden $p^r$ con $0 \leq r \leq s$.
+\end{exercise}
+\begin{proof}[Solución] Sea $H$ un subgrupo de $G$. Por el teorema de Lagrange, sabemos que $n := |H|$ debe dividir a $p^s = |G|$, así que $n = p^r $ con $0 \leq r  \leq s$. 
+\end{proof}
+
+\begin{exercise} Sea $G$ un grupo finito y $H,K \leq G$ dos subgrupos. Probar que:
+\begin{itemize}
+\item[(i)] Si los órdenes de $H$ y $K$ son coprimos, entonces $H \cap K = \{1\}$.
+\item[(ii)] Si $H$ y $K$ tienen orden $p$ con $p$ un primo, entonces $H = K$ ó $H \cap K = \{1\}$.
+\end{itemize} 
+\end{exercise}
+\begin{proof}[Solución] Recordemos antes que nada que la intersección de dos subgrupos es un subgrupo. Ahora,
+\begin{itemize}
+\item[(i)] Por el teorema de Lagrange, el orden de $H \cap K$ debe dividir tanto a orden de $H$ como al de $K$, así que $|H \cap K| = 1$ y entonces $H \cap K = \{1\}$.
+\item[(ii)] Sabemos una vez más que el orden $H \cap K$ debe dividir a $p$, y por lo tanto es $1$ ó $p$. En el primer caso es $H \cap K = \{1\}$, y en el segundo, obtenemos que $H = H \cap K = K$ pues $H \cap K \subset H,K$ y $|H \cap K|  = p = |H|,|K|$.
+\end{itemize}
+\end{proof}
+
+\begin{exercise} Sea $G$ un grupo finito de orden $n \cdot m$ y $H$ un subgrupo normal de orden $n$. Probar que: 
+\begin{itemize}
+\item[(i)] Para todo $g \in G$ se tiene que $g^m \in H$.
+\item[(ii)]Más aun, si $m$ y $n$ son coprimos entonces $H = \{g^m : g \in G\}$.
+\end{itemize}
+\end{exercise}
+\begin{proof}[Solución] Como $H$ es normal en $G$, sabemos que el cociente $G/H$ es un grupo con la operación dada por $gH \cdot g'H := gg'H$. Notando $[g] := gH$, la anterior operación es $[g][g'] := [gg']$.
+
+Podemos entonces aplicar el teorema de Lagrange a $G/H$, de forma todo elemento $x \in G/H$ tiene orden divisible por $|G/H| = [G:H] = |G|/|H| = m$. En particular es $x^m = 1$ para todo $x \in G/H$.
+
+Fijemos ahora $g \in G$. Lo anterior nos dice que $1 = [g]^m = [g^m]$ o equivalentemente, que  $g^mH = H$, así que $g^m \in H$. Esto prueba $\tpaint{(i)}$, que podemos escribir como la contención $\{g^m : g \in G\} \subset H$.
+
+Para probar el ítem $\tpaint{(ii)}$ resta ver que $H \subset \{g^m : g \in G\}$. Supongamos que $(n:m) = 1$ y fijemos $h \in H$. Por la identidad de Bézout existen enteros $s,t \in \Z$ tales que $ns + mt = 1$, así que $
+h = h^1 = h^{ns+mt} = h^{ns} \cdot h^{mt}$. Como $H$ tiene orden $n$ sabemos que $(h^s)^n = 1$, y entonces
+\[
+h = h^{ns} \cdot h^{mt} = (h^s)^n(h^t)^m = (h^t)^m \in \{g^m : g \in G \}.
+\]
+\end{proof}
+
+
+
+\end{document}

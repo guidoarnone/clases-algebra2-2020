@@ -1,0 +1,322 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts, amssymb}
+\usepackage{mathrsfs}
+\usepackage{tikz-cd}
+\usepackage{graphics}
+\usepackage{epstopdf}
+\usepackage{lmodern}
+\usepackage{bbm} % black board numbers
+\usepackage{listings}
+\usepackage{hyperref}
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
+
+
+\mode<presentation>{
+
+	\usetheme{Boadilla} 
+	\usecolortheme{whale}
+	%\usefonttheme{professionalfonts}
+}
+
+
+
+
+
+\newcommand{\tq}{\mathrel{{\ensuremath{\: : \: }}}}
+
+\newcommand{\st}{\ensuremath{\mathrm{st}}}
+\newcommand{\starabierto}{\ensuremath{\stackrel{\circ}{\mathrm{st}}}}
+\newcommand{\lk}{\ensuremath{\mathrm{lk}}}
+
+\newcommand{\Hom}{\ensuremath{\mathrm{Hom}}}
+\newcommand{\Ext}{\ensuremath{\mathrm{Ext}}_{\mathbb{Z}}}
+\newcommand{\Tor}{\ensuremath{\mathrm{Tor}}^{\mathbb{Z}}}
+
+\newcommand{\imagen}{\ensuremath{\mathrm{Im}}}
+\newcommand{\tr}{\ensuremath{\mathrm{tr}}}
+\newcommand{\rk}{\mathrm{rk}}
+
+\newcommand{\id}{\mathbbm{1}}
+\newcommand{\Sq}{\ensuremath{\mathrm{Sq}}}
+\newcommand{\deficiency}{\mathrm{def}}
+\newcommand{\Fix}{\mathrm{Fix}}
+\def\action{\curvearrowright}
+\newcommand{\LS}[2]{\left(\dfrac{#1}{#2}\right)}
+
+
+\newcommand{\Out}{\mathrm{Out}}
+\newcommand{\Outdiag}{\mathrm{Outdiag}}
+\newcommand{\Inn}{\mathrm{Inn}}
+\newcommand{\Aut}{\mathrm{Aut}}
+
+
+\def\wt{\widetilde}
+\def\ms{\medskip}
+\def\bs{\bigskip}
+
+
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\H{\mathbb{H}}
+
+\def\GL{\mathrm{GL}}
+\def\SO{\mathrm{SO}}
+\def\sg{\mathrm{sg}}
+\def\det{\mathrm{det}}
+
+
+\def\sharp{\#}
+
+\newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
+\newcommand{\Set}{\catname{Set}}
+\newcommand{\Top}{\catname{Top}}
+\newcommand{\Ab}{\catname{Ab}}
+\newcommand{\Grp}{\catname{Grp}}
+\newcommand{\op}{\catname{op}}
+
+\def\1{\mathbbm{1}}
+%\beamerdefaultoverlayspecification{<+->} % itemize automatico
+\newtheorem{teorema}{Teorema} [section]
+\newtheorem{teorema1}[teorema]{Teorema 1}
+\newtheorem{teorema2}[teorema]{Teorema 2}
+\newtheorem{teorema3}[teorema]{Teorema 3}
+\newtheorem{pregunta}[teorema]{Pregunta}
+\newtheorem{definicion}[teorema]{Definici\'on} 
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{corolario}[teorema]{Corolario} 
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+\newtheorem{ejercicio}[teorema]{Ejercicio}
+\newtheorem{ejemplos}[teorema]{Ejemplos}
+\newtheorem{observacion}[teorema]{Observaci\'on}
+\newtheorem{proposicion}[teorema]{Proposici\'on}
+\newtheorem{conjetura}[teorema]{Conjetura}
+
+
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}
+        {
+      \leavevmode
+      \hbox{
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}\insertshortauthor
+      \end{beamercolorbox}
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+      \end{beamercolorbox}
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate
+
+    %#turning the next line into a comment, erases the frame numbers
+        %\insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+
+      \end{beamercolorbox}
+			}
+      \vskip0pt
+    }
+
+\newenvironment{psmallmatrix}
+  {\left(\begin{smallmatrix}}
+  {\end{smallmatrix}\right)}
+
+\setbeamercolor{alerted text}{fg=blue!100!black!200!}
+
+
+% Author, Title, etc.
+\title[Álgebra II Práctica (clase 3)] {Álgebra II Práctica (clase 3)}
+\author[G. Arnone]{Guido Arnone}
+\institute[]{Universidad de Buenos Aires}
+\date[2020/04/21]{21 de Abril de 2020}
+
+
+% The main document
+\begin{document}
+
+{
+\setbeamertemplate{footline}{}
+\begin{frame}
+\titlepage
+\end{frame}
+}
+
+\section{Prerrequisitos}
+\begin{frame}{Prerrequisitos}
+Para leer estas diapositivas se recomienda haber leído el apunte teórico hasta el Teorema 1.6.10 de la Sección 1.6.
+
+\medskip
+
+%\tableofcontents
+\end{frame}
+
+\begin{frame}{Coclases}
+  
+  \onslide<1-> Recordar: dado un subgrupo $H$ de un grupo $G$, las \alert{coclases a izquierda} de $G$ con respecto a $H$ son los conjuntos $gH = \{gh : h \in H\}$ para cada $g \in G$, y el \alert{cociente} de $G$ por $H$ es el conjunto de coclases $G/H = \{gH\}_{g \in G}$. \medskip
+  
+  \onslide<2-> Las coclases forman una partición de $G$, y en particular se  tiene la relación de equivalencia
+  \begin{align*}
+    s \sim t &\iff sH = tH \iff s^{-1}tH = H\\
+    &\iff s^{-1}t \in H \iff t = sh \text{ para algún $h \in H$.}
+  \end{align*}
+  \onslide<3-> A veces notaremos $[s]$ o $\overline{s}$ a la coclase $sH$, pues es la clase de equivalencia de $s \in G$ con respecto a esta relación.
+  
+  \onslide<4-> Lo anterior nos dice que $[s] = [t]$ si y sólo si $t = sh$ para algún $h \in H$. Intuitivamente, dos elementos son equivalentes (es decir, están la misma coclase) si "difieren en un elemento de $H$". 
+  
+\end{frame}
+
+\begin{frame}{Coclases - Ejemplos}
+  Veamos algunos ejemplos:
+  \medskip
+  \onslide<2-> 
+  \begin{itemize}
+  \item Si tomamos $H = \{1\}$, entonces $gH = \{g\}$ para cada $g \in G$ y $G/H = \{\{g\}\}_{g \in G}$. 
+  
+  Si en cambio $H = G$, es $gH = gG = G$ para todo $g$ en $G$, así que $G/H = \{G\}$. 
+  \medskip
+  \onslide<3->\item Dado $n \in \N$ y $n\Z \leq \Z$, sabemos que
+  \[
+    s(n\Z) = t(n\Z) \iff t-s \in n\Z \iff n|t-s \iff t \equiv s \pmod{n}
+  \]
+  así que hay una coclase por cada resto en la división por $n$,
+  \[
+  \Z/n\Z = \{0 + n\Z,1+n\Z,\dots, (n-1) + n\Z\}.
+  \] 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coclases - Ejemplos (cont.)}
+  \begin{itemize}
+  \item Fijemos $V$ un $\Bbbk$-espacio vectorial, que podemos considerar como grupo con su suma, y sea $S \leq V$ un subespacio (en particular, un subgrupo de $V$). Cada coclase $v + S = \{v+s : s \in S\}$ se corresponde con trasladar a $S$ por $v$. \onslide<2-> Las observaciones que hicimos sobre las coclases nos dicen que $V$ es la unión disjunta de trasladados de $S$, y que $v + S = w+S$ si y sólo si $v-w \in S$.
+  \medskip
+  \onslide<3->\item Más concretamente, tomemos $V = \R^2$ y $S = \langle (1,0)\rangle = \R \oplus 0$ el "eje x". \onslide<4-> Cada trasladado $L_y := (x,y) + S = \{(x+\lambda,y) : \lambda \in \R\}$ es una recta horizontal de altura $y$. \onslide<5-> Por lo tanto, las coclases son las rectas paralelas a $S$, estas forman una unión disjunta de $\R^2$, y $(x,y)+S = (x,y')+S$ si y sólo si $y = y'$. \onslide<6-> En particular un sistema de representantes para la relación dada por las coclases es $\{(0,y)\}_{y \in \R}$, y
+  \[
+  \R^2/\R \oplus 0 = \{(0,y) + \langle (1,0)\rangle : y \in \R\}.
+  \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coclases - Ejemplos (cont.)}
+  \medskip
+  \begin{itemize}
+  \item Consideremos ahora $A_n \leq S_n$, para $n \geq 2$. Tenemos que
+    \[
+    \sigma A_n = \tau A_n \iff \sigma^{-1}\tau \in A_n \iff \sg(\sigma)^{-1}\sg(\tau) = \sg(\sigma^{-1}\tau) = 1,
+    \]
+    así que dos permutaciones pertenecen a la misma coclase si y sólo si tienen el mismo signo.
+    
+    Hay entonces dos coclases, correspondientes a las permutaciones de signo $1$ y $-1$ respectivamente, y 
+    \[
+    S_n/A_n = \{1 \cdot A_n, \sigma \cdot A_n \}
+    \]
+    con $\sigma \in S_n$ de signo $-1$ (por ejemplo, podemos tomar $\sigma = (12)$).
+  \onslide<2->\item Más en general, dado un morfismo de grupos $f : G \to G'$, sabemos que $H = \ker f$ es un subgrupo de $G$. Aquí es
+  \[
+  yH = xH \iff y^{-1}x \in \ker f \iff f(y)^{-1}f(x) = f(y^{-1}x) = 1_{G'},
+  \]
+  así que $xH = yH \iff f(x) = f(y)$. Aplicando esto a $\sg : S_n \to G_2$ obtenemos el ejemplo anterior.
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{El teorema de Lagrange}
+  \onslide<1->{
+  Recordemos que dado un subgrupo $H$ de un grupo $G$, su \alert{índice} es \[[G:H] := |G/H|.\]
+  }
+  \onslide<2->{El teorema de Lagrange relaciona el índice de $H$ en $G$ con los órdenes de tanto $H$ como $G$,
+  }
+  \onslide<3->{
+  \begin{teorema}[Lagrange] Si $G$ es un grupo y $H$ un subgrupo de $G$, entonces $|G| = [G:H]|H|$.
+  \end{teorema}
+  }
+  \onslide<4-> En particular, de los ejemplos anteriores y el teorema resulta que $|S_n| = 2|A_n|$, como habíamos visto la clase pasada. En general,
+  \onslide<5->{
+  \begin{corolario} Si $G$ es un grupo finito y $H$ un subgrupo de $G$, el orden de $H$ divide al orden de $G$. En particular, si $x \in G$ entonces $\mathrm{ord}(x) = |\langle x \rangle |$ divide al orden de $G$.
+  \end{corolario}
+  }
+\end{frame}
+
+
+\begin{frame}{El teorema de Lagrange - Aplicaciones}
+\begin{ejercicio}Exhibir un grupo $G$ y $n \in \N$ que divida a $|G|$ pero tal que no existan elementos de orden $n$ en $G$.
+\end{ejercicio}
+
+\onslide<2->Antes de seguir, veamos una aplicación del teorema de Lagrange:
+\begin{proposicion} Si $n,m \in \N$, entonces $n!\cdot m!$ divide a $(n+m)!$.
+\end{proposicion}
+\onslide<3-> \alert{Idea de la demostración:}
+\begin{itemize}
+\onslide<4->\item Si $\sigma \in S = S_n$ y $\tau \in T= S(\{n+1,\dots, n+m\})$, podemos definir una permutación $i(\sigma, \tau) \in S_{n+m}$ por $i(\sigma,\tau)(t) = \sigma(t)$ si $t \leq n $ e $i(\sigma, \tau)(t) = \tau(t)$ si $t > n$, que "permuta $\{1,\dots, n\}$ como $\sigma$ y $\{n+1,\dots, n+m\}$ como $\tau$". \onslide<5->Esto define un morfismo de grupos inyectivo $(\sigma, \tau) \in S \times T \mapsto i(\sigma, \tau) \in S_{n+m}$.
+\onslide<6->\item Por Lagrange $n!\cdot m! = |S \times T| = |\mathrm{im} f|$ divide a $|S_{n+m}| = (n+m)!$.
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{El teorema de Lagrange - Aplicaciones (cont.)}
+\onslide<1-> Quedan como ejercicio también las siguientes aplicaciones del teorema:
+\onslide<2-> \begin{ejercicio} Probar que si $G$ es un grupo de orden $p^s$ con $p$ primo y $s \geq 1$, todo subgrupo de $G$ tiene orden $p^r$ con $0 \leq r \leq s$.
+\end{ejercicio} \onslide<3->Esto puede ser útil para probar una propiedad sobre los grupos de orden $p^k$ inductivamente.
+\onslide<4-> \begin{ejercicio} Sea $G$ un grupo finito y $H,K \leq G$ dos subgrupos. Probar que:
+\begin{itemize}
+\item[(i)] Si los órdenes de $H$ y $K$ son coprimos, entonces $H \cap K = \{1\}$.
+\item[(ii)] Si $H$ y $K$ tienen orden $p$ con $p$ un primo, entonces $H = K$ ó $H \cap K = \{1\}$.
+\end{itemize}
+\end{ejercicio}
+\end{frame}
+
+\begin{frame}{Subgrupos Normales}
+Recordar: un subgrupo $H$ de un grupo $G$ se dice \alert{normal} si para cada $g \in G$ se tiene que $gHg^{-1} \subset H$. En tal caso notamos $H \triangleleft G$. \medskip
+
+\onslide<2-> ¿Por qué nos interesan los subgrupos normales?
+\begin{itemize}
+\onslide<3-> \item Si $f : G \to G'$ es un morfismo de grupos, sabemos que $\ker f$ es normal en $G$.
+\onslide<4-> \item Si $H$ es normal en $G$, podemos \alert{dotar al cociente $G/H$ de una estructura de grupo } a través de la operación $gH \cdot g'H := gg'H$. \onslide<5-> Más aún, la \alert{proyección canónica} $\pi : g \in G \mapsto [g] = gH \in G/H$ \alert{resulta un morfismo} de grupos cuyo núcleo es
+\[
+\ker \pi = \{g \in G : gH = 1H = H\} = \{g \in G : g \in H\} = H.
+\]
+\onslide<6-> \item En definitiva, lo anterior nos dice que un subgrupo es normal si y sólo si es el núcleo de algún morfismo de grupos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Subgrupos Normales - Ejemplos}
+Algunos ejemplos son los siguientes:
+\begin{itemize}
+\onslide<2-> \item Los subgrupos $\{1\}$ y $G$ siempre son normales en $G$.
+\onslide<3->\item El grupo alternante $A_n$ es normal en $S_n$, ya que es el núcleo del morfismo $\sg: S_n\to G_2$.
+\onslide<4-> \item En $S_3$, el subgrupo $H = \langle (12) \rangle = \{1,(12)\}$ \alert{no} es normal, pues
+\[
+(123)(12)(123)^{-1} = (123)(12)(321) = (13) \not \in H.
+\]
+\onslide<5-> \item Si $G$ es abeliano, todo subgrupo es normal.
+\onslide<6-> \item Las matrices ortogonales $\mathrm{O}(n)$ \alert{no} son un subgrupo normal de $\GL_n(\R)$. Por ejemplo, si $O = \begin{psmallmatrix}
+0 & 1\\
+-1 &0\\
+\end{psmallmatrix} \in \mathrm{O}(2)$ y $A = \begin{psmallmatrix}
+2 & 0\\
+0 &1\\
+\end{psmallmatrix} \in \GL_2(\R)$, entonces $AOA^{-1} = \begin{psmallmatrix}
+0 & 2\\
+-\frac{1}{2} &0\\
+\end{psmallmatrix} \not \in \mathrm{O}(2)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Un Ejercicio}
+Pueden relacionar los temas anteriores a través del siguiente ejercicio:
+\medskip
+\begin{ejercicio} Sea $G$ un grupo finito de orden $n \cdot m$ y $H$ un subgrupo normal de orden $n$. Probar que: 
+\begin{itemize}
+\item[(i)] Para todo $g \in G$ se tiene que $g^m \in H$.
+\item[(ii)] Más aún, si $m$ y $n$ son coprimos entonces $H = \{g^m : g \in G\}$.
+\end{itemize}
+\end{ejercicio}
+\end{frame}
+  
+\end{document}
